@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  li {
+    @apply hover:text-blue-700;
+  }
+
+  .router-link-active {
+    @apply text-blue-700 bg-slate-500;
+  }
+}
