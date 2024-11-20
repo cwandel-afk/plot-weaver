@@ -1,12 +1,17 @@
 <template>
-  <div class="bg-slate-300 w-screen h-screen flex flex-row">
+  <div class="bg-slate-300 flex flex-row w-screen h-screen">
     <RootNavigation />
-    <NuxtPage />
+    <div class="w-full p-6">
+      <slot />
+    </div>
   </div>
 </template>
 
 <script>
-export default {
+export default defineNuxtComponent({
   name: "DefaultLayout",
-};
+  setup() {
+    return {};
+  },
+});
 </script>

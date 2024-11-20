@@ -1,9 +1,11 @@
 <template>
-  <div class="w-full h-screen p-6">
-    <ContentDoc is="index" />
+  <div>
+    <NuxtLayout>
+      <div class="block mx-auto prose">
+        <ContentDoc is="index" />
+      </div>
+    </NuxtLayout>
   </div>
 </template>
 
-<script>
-export default {};
-</script>
+<script setup></script>
