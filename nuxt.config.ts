@@ -6,6 +6,15 @@ export default defineNuxtConfig({
   content: {
     documentDriven: true,
   },
+  runtimeConfig: {
+    oauth: {
+      // provider in lowercase (github, google, etc.)
+      google: {
+        clientId: process.env.NUXT_OAUTH_GOOGLE_CLIENT_ID,
+        clientSecret: process.env.NUXT_OAUTH_GOOGLE_CLIENT_SECRET,
+      },
+    },
+  },
   hub: {
     database: true,
   },
