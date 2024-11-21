@@ -11,6 +11,9 @@ export default {
     const layout = ref("auth");
 
     const router = useRouter();
+    useHead({
+      link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+    });
 
     onMounted(() => {
       console.log("mounted", user.value);
