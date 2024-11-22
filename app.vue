@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import ContentTileLink from "./components/content/ContentTileLink.vue";
 export default {
   setup() {
     const { loggedIn, user } = useUserSession();

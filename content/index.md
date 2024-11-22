@@ -1,17 +1,30 @@
+<div align="center" class="mb-20 text-2xl">
+
 # Welcome to Plot Weaver
 
-Welcome to Plot Weaver, your ultimate tool for creating and visualizing complex plots and storylines. Whether you're a writer, a game developer, or just someone who loves storytelling, Plot Weaver is here to help you weave your tales seamlessly.
+</div>
 
-## Features
+::HomeLinks
+::
 
-- **Intuitive Interface**: Easily create and manage your plots with our user-friendly interface.
-- **Visualization Tools**: Visualize your storylines and see how they interconnect.
-- **Collaboration**: Work with others in real-time to craft your stories.
+<div align="middle" class="px-10 mt-20 space-y-10 text-xl font-bold">
 
-## Get Started
+# New Features
 
-To get started, simply create a new project and start plotting your story. Check out our [documentation](#) for more detailed instructions and tips.
+<div class="rounded-2xl shadow-gray-900 w-1/2 p-4 text-left text-white bg-gray-700 border-4 border-gray-500 shadow-inner">
 
-Happy plotting!
+- Feature 1: Description of the new feature.
+- Feature 2: Description of the new feature.
 
-The Plot Weaver Team
+</div>
+
+# Resolved Issues
+
+<div class="rounded-2xl shadow-gray-900 w-1/2 p-4 text-left text-white bg-gray-700 border-4 border-gray-500 shadow-inner">
+
+- Issue 1: Description of the resolved issue.
+- Issue 2: Description of the resolved issue.
+
+</div>
+
+</div>

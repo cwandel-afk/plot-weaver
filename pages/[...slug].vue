@@ -1,7 +1,7 @@
 <template>
   <div>
     <NuxtLayout>
-      <div class="block mx-auto prose">
+      <div class="max-w-full mx-auto overflow-y-auto prose">
         <ContentDoc is="index" />
       </div>
     </NuxtLayout>

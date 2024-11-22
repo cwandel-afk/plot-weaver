@@ -1,9 +1,11 @@
 <template>
-  <div class="bg-slate-100 grid justify-center w-16 h-screen grid-rows-2">
+  <div
+    class="bg-slate-100 sticky top-0 left-0 grid justify-center w-16 h-screen grid-rows-2"
+  >
     <ul class="grid items-center justify-center w-16 grid-rows-6">
       <li>
         <NuxtLink to="/" class="group">
-          <UserIcon class="size-8 group-[.router-link-active]:text-amber-700" />
+          <HomeIcon class="size-8 group-[.router-link-active]:text-amber-700" />
         </NuxtLink>
       </li>
       <li>
@@ -69,6 +71,7 @@ import {
   Cog6ToothIcon,
   CreditCardIcon,
   ArrowRightStartOnRectangleIcon,
+  HomeIcon,
 } from "@heroicons/vue/24/outline";
 export default defineNuxtComponent({
   name: "RootNavigation",
@@ -82,6 +85,7 @@ export default defineNuxtComponent({
     Cog6ToothIcon,
     CreditCardIcon,
     ArrowRightStartOnRectangleIcon,
+    HomeIcon,
   },
   setup() {
     const { user, clear } = useUserSession();
