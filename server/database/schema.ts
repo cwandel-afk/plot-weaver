@@ -5,3 +5,11 @@ export const players = sqliteTable("players", {
   name: text("name").notNull(),
   entity: text("entity"),
 });
+
+export const projects = sqliteTable("projects", {
+  id: text("id").primaryKey().unique(),
+  name: text("name").notNull(),
+  description: text("description").notNull(),
+  notes: text("notes"),
+  documents: text("documents"), // Assuming documents are stored as a JSON string
+});

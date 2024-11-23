@@ -1,4 +1,4 @@
-<div align="center" class="mb-20 text-2xl">
+<div align="middle" class="mb-20 text-2xl">
 
 # Welcome to Plot Weaver
 
