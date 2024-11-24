@@ -11,6 +11,8 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   hub: {
     database: true,
+    // remote: true,
+    projectKey: process.env.NUXT_HUB_PROJECT_KEY,
   },
   modules: ["@nuxthub/core", "@nuxt/content", "nuxt-auth-utils"],
   postcss: {

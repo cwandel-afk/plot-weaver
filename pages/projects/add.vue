@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { useProjects, Project } from "~/composables/useProjects";
+import FormRow from "~/layouts/form-row.vue";
+import { useDrizzle } from "@/server/utils/drizzle";
 
 const router = useRouter();
 const { projects, addProject } = useProjects();
@@ -9,15 +11,39 @@ const description = ref("");
 const notes = ref("");
 const files = ref<File[]>([]);
 
-const createProject = () => {
-  addProject(
-    new Project({
-      id: crypto.randomUUID(),
-      name: name.value,
-      description: description.value,
-      notes: notes.value,
+const db = hubDatabase();
+
+const createProject = async () => {
+  const newID = crypto.randomUUID();
+  await useDrizzle()
+    .$client.prepare(
+      `INSERT INTO projects (id, name, description, notes) VALUES (?1, ?2, ?3, ?4)`
+    )
+    .bind(newID, name.value, description.value, notes.value)
+    .run()
+    .then(() => {
+      console.log("Project added");
+      addProject(
+        new Project({
+          id: newID,
+          name: name.value,
+          description: description.value,
+          notes: notes.value,
+        })
+      );
     })
-  );
+    .catch((err: any) => {
+      console.error(err);
+    });
+
+  // addProject(
+  //   new Project({
+  //     id: newID,
+  //     name: name.value,
+  //     description: description.value,
+  //     notes: notes.value,
+  //   })
+  // );
 
   router.replace({ name: "projects-list" });
 };
@@ -27,43 +53,56 @@ const createProject = () => {
   <div>
     <NuxtLayout>
       <div class="grid items-center justify-center w-full h-full">
-        <form class="p-6 bg-gray-900" @submit.prevent="createProject">
-          <div class="flex flex-col items-center justify-center">
-            <label for="name" class="text-white">Project Name</label>
-
+        <form
+          class="rounded-xl grid-rows-7 grid items-center justify-center gap-4 p-3 bg-gray-700 border-2 border-gray-500 shadow-lg"
+          @submit.prevent="createProject"
+        >
+          <FormRow label="Project Name" fieldId="name" class="row-span-1">
             <input
               type="text"
               id="name"
               name="name"
               v-model="name"
-              class="w-96 p-2 m-2 border-4 border-gray-800"
+              class="w-96 p-2 border-4 border-gray-800"
             />
-            <label for="description" class="text-white">description</label>
+          </FormRow>
 
-            <input
+          <FormRow
+            label="Description"
+            fieldId="description"
+            :labelCentered="false"
+            class="row-span-3"
+          >
+            <textarea
               type="text"
               id="description"
               name="description"
               v-model="description"
-              class="w-96 p-2 m-2 border-4 border-gray-800"
+              class="h-52 w-full p-2 border-4 border-gray-800 resize-none"
             />
-            <label for="notes" class="text-white">notes</label>
+          </FormRow>
 
-            <input
+          <FormRow
+            label="Notes"
+            fieldId="notes"
+            :labelCentered="false"
+            class="row-span-3"
+          >
+            <textarea
               type="text"
               id="notes"
               name="notes"
               v-model="notes"
-              class="w-96 p-2 m-2 border-4 border-gray-800"
+              class="h-52 w-full p-2 border-4 border-gray-800 resize-none"
             />
+          </FormRow>
 
-            <button
-              type="submit"
-              class="p-4 text-white border-4 border-purple-700"
-            >
-              Add Project
-            </button>
-          </div>
+          <button
+            type="submit"
+            class="p-4 text-white border-4 border-purple-700"
+          >
+            Add Project
+          </button>
         </form>
       </div>
     </NuxtLayout>
