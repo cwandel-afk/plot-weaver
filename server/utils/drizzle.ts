@@ -8,5 +8,5 @@ import { useNitro } from "nuxt/kit";
 export const tables = schema;
 
 export function useDrizzle() {
-  return drizzle(, { schema });
+  return drizzle(hubDatabase(), { schema });
 }
