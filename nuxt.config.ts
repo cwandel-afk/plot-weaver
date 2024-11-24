@@ -1,6 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
+  modules: ["@nuxthub/core", "@nuxt/content", "nuxt-auth-utils"],
   content: {
     documentDriven: true,
     markdown: {
@@ -14,7 +15,6 @@ export default defineNuxtConfig({
     // remote: true,
     projectKey: process.env.NUXT_HUB_PROJECT_KEY,
   },
-  modules: ["@nuxthub/core", "@nuxt/content", "nuxt-auth-utils"],
   postcss: {
     plugins: {
       autoprefixer: {},
