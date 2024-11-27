@@ -27,7 +27,7 @@ onMounted(async () => {
       </div>
       <div class="block w-full h-full p-5">
         <RouterLink
-          :to="`/projects/edit-${project.name}`"
+          :to="`/projects/edit-${project.id}`"
           v-for="project in projects"
           :key="project.id"
           class="hover:ring-purple-700 hover:ring-4 ring-offset-2 h-80 inline-block w-64 p-3 m-6 bg-gray-700 cursor-pointer"

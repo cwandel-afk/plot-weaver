@@ -1,4 +1,5 @@
 import { projectsTable } from "~/server/database/schema";
+import { eq } from "drizzle-orm";
 
 export interface IProject {
   id: string;
@@ -44,7 +45,18 @@ export const useProjects = () => {
   };
 
   const removeProject = (project: Project) => {
-    _projects.value = _projects.value.filter((p) => p !== project);
+    db.delete(projectsTable)
+      .where(eq(projectsTable.id, project.id))
+      .then(() => {
+        _projects.value = _projects.value.filter((p) => p !== project);
+
+        console.log(
+          `[ useProjects ] Project with id ${project.id} removed successfully.`
+        );
+      })
+      .catch((err) => {
+        console.error(`[ useProjects ] Error removing project: ${err}`);
+      });
   };
 
   const updateProject = (project: Project, updatedProject: Project) => {
@@ -60,14 +72,15 @@ export const useProjects = () => {
     const allProjects = await db
       .select()
       .from(projectsTable)
-      .then((rows) =>
-        rows.map(
-          (row) =>
-            new Project({
-              ...row,
-              documents: row.documents ? JSON.parse(row.documents) : null,
-            })
-        )
+      .then(
+        (rows) =>
+          (_projects.value = rows.map(
+            (row) =>
+              new Project({
+                ...row,
+                documents: row.documents ? JSON.parse(row.documents) : null,
+              })
+          ))
       );
     return allProjects;
   };

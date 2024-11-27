@@ -26,7 +26,7 @@ export default defineNuxtConfig({
     },
   },
   runtimeConfig: {
-    public: {
+    app: {
       NEON_CONNECTION_STRING: process.env.NEON_CONNECTION_STRING,
     },
     oauth: {
