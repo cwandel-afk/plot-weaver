@@ -1,7 +1,15 @@
 <script setup lang="ts">
-import { useProjects } from "~/composables/useProjects";
+import { Project } from "~/composables/useProjects";
 
-const { projects } = useProjects();
+const { getProjects } = useProjects();
+
+const projects = ref<Project[]>([]);
+
+onMounted(async () => {
+  await getProjects().then((data) => {
+    projects.value = data;
+  });
+});
 </script>
 
 <template>
@@ -17,12 +25,9 @@ const { projects } = useProjects();
           </button>
         </NuxtLink>
       </div>
-      <!-- <div
-        class="rounded-xl shadow-gray-600 block w-full min-h-[75vh] p-6 bg-gray-800 shadow-inner"
-      > -->
       <div class="block w-full h-full p-5">
         <RouterLink
-          :to="`/projects/edit-${project.id}`"
+          :to="`/projects/edit-${project.name}`"
           v-for="project in projects"
           :key="project.id"
           class="hover:ring-purple-700 hover:ring-4 ring-offset-2 h-80 inline-block w-64 p-3 m-6 bg-gray-700 cursor-pointer"
@@ -31,7 +36,6 @@ const { projects } = useProjects();
           <p class="text-gray-200">{{ project.description }}</p>
         </RouterLink>
       </div>
-      <!-- </div> -->
     </NuxtLayout>
   </div>
 </template>

@@ -1,3 +1,7 @@
+import dotenv from "dotenv";
+
+dotenv.config();
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
@@ -22,6 +26,9 @@ export default defineNuxtConfig({
     },
   },
   runtimeConfig: {
+    public: {
+      NEON_CONNECTION_STRING: process.env.NEON_CONNECTION_STRING,
+    },
     oauth: {
       // provider in lowercase (github, google, etc.)
       google: {

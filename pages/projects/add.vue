@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useProjects, Project } from "~/composables/useProjects";
 import FormRow from "~/layouts/form-row.vue";
-import { useDrizzle } from "@/server/utils/drizzle";
 
 const router = useRouter();
 const { projects, addProject } = useProjects();
@@ -11,39 +10,16 @@ const description = ref("");
 const notes = ref("");
 const files = ref<File[]>([]);
 
-const db = hubDatabase();
-
 const createProject = async () => {
   const newID = crypto.randomUUID();
-  await useDrizzle()
-    .$client.prepare(
-      `INSERT INTO projects (id, name, description, notes) VALUES (?1, ?2, ?3, ?4)`
-    )
-    .bind(newID, name.value, description.value, notes.value)
-    .run()
-    .then(() => {
-      console.log("Project added");
-      addProject(
-        new Project({
-          id: newID,
-          name: name.value,
-          description: description.value,
-          notes: notes.value,
-        })
-      );
+  addProject(
+    new Project({
+      id: newID,
+      name: name.value,
+      description: description.value,
+      notes: notes.value,
     })
-    .catch((err: any) => {
-      console.error(err);
-    });
-
-  // addProject(
-  //   new Project({
-  //     id: newID,
-  //     name: name.value,
-  //     description: description.value,
-  //     notes: notes.value,
-  //   })
-  // );
+  );
 
   router.replace({ name: "projects-list" });
 };
