@@ -4,45 +4,37 @@
   >
     <ul class="grid-rows-7 grid items-center justify-center w-16">
       <li>
-        <NuxtLink to="/" class="group">
-          <HomeIcon class="size-8 group-[.router-link-active]:text-amber-700" />
+        <NuxtLink to="/" active-class="text-amber-700">
+          <HomeIcon class="size-8" />
         </NuxtLink>
       </li>
       <li>
-        <NuxtLink to="/players" class="group">
-          <UsersIcon
-            class="size-8 group-[.router-link-active]:text-amber-700"
-          />
+        <NuxtLink to="/players" active-class="text-amber-700">
+          <UsersIcon class="size-8" />
         </NuxtLink>
       </li>
       <li>
-        <NuxtLink to="/entities" class="group">
-          <IdentificationIcon
-            class="size-8 group-[.router-link-active]:text-amber-700"
-          />
+        <NuxtLink to="/entities" active-class="text-amber-700">
+          <IdentificationIcon class="size-8" />
         </NuxtLink>
       </li>
       <li>
-        <NuxtLink to="/map-builder" class="group">
-          <GlobeAmericasIcon
-            class="size-8 group-[.router-link-active]:text-amber-700"
-          />
+        <NuxtLink to="/map-builder" active-class="text-amber-700">
+          <GlobeAmericasIcon class="size-8" />
         </NuxtLink>
       </li>
       <li>
-        <NuxtLink to="/initiative" class="group">
-          <NumberedListIcon
-            class="size-8 group-[.router-link-active]:text-amber-700"
-          />
+        <NuxtLink to="/initiative" active-class="text-amber-700">
+          <NumberedListIcon class="size-8" />
         </NuxtLink>
       </li>
       <li>
-        <NuxtLink to="/spellbook" class="group">
-          <FireIcon class="size-8 group-[.router-link-active]:text-amber-700" />
+        <NuxtLink to="/spellbook" active-class="text-amber-700">
+          <FireIcon class="size-8" />
         </NuxtLink>
       </li>
       <li>
-        <NuxtLink to="/projects/list" class="group">
+        <NuxtLink to="/projects/list" active-class="text-amber-700">
           <FolderOpenIcon
             class="size-8 group-[.router-link-active]:text-amber-700"
           />

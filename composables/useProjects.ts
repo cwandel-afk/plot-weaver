@@ -60,8 +60,24 @@ export const useProjects = () => {
   };
 
   const updateProject = (project: Project, updatedProject: Project) => {
-    const index = _projects.value.findIndex((p) => p === project);
-    _projects.value[index] = updatedProject;
+    db.update(projectsTable)
+      .set({
+        ...updatedProject,
+        documents: updatedProject.documents
+          ? JSON.stringify(updatedProject.documents)
+          : null,
+      })
+      .where(eq(projectsTable.id, project.id))
+      .then(() => {
+        const index = _projects.value.findIndex((p) => p === project);
+        _projects.value[index] = updatedProject;
+        console.log(
+          `[ useProjects ] Project with id ${project.id} updated successfully.`
+        );
+      })
+      .catch((err) => {
+        console.error(`[ useProjects ] Error updating project: ${err}`);
+      });
   };
 
   const findProject = (id: string) => {
