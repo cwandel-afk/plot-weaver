@@ -1,4 +1,4 @@
-<div align="middle" class="mb-20 text-2xl">
+<div class="mb-20 text-2xl text-center">
 
 # Welcome to Plot Weaver
 
@@ -7,7 +7,7 @@
 ::HomeLinks
 ::
 
-<div align="middle" class="px-10 mt-20 space-y-10 text-xl font-bold">
+<div class="px-10 mt-20 space-y-10 text-xl font-bold text-center">
 
 # New Features
 

@@ -7,12 +7,11 @@ export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
   modules: ["@nuxthub/core", "@nuxt/content", "nuxt-auth-utils"],
   content: {
-    documentDriven: true,
     markdown: {
       mdc: true,
     },
   },
-  css: ["~/assets/css/main.css"],
+  css: ["./assets/css/main.css"],
   devtools: { enabled: true },
   hub: {
     database: true,

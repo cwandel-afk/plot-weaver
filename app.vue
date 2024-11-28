@@ -5,11 +5,9 @@
 </template>
 
 <script>
-import ContentTileLink from "./components/content/ContentTileLink.vue";
 export default {
   setup() {
     const { loggedIn, user } = useUserSession();
-    const layout = ref("auth");
 
     const router = useRouter();
     useHead({
@@ -18,24 +16,10 @@ export default {
 
     onMounted(() => {
       console.log("mounted", user.value);
-      if (!loggedIn.value) {
-        router.push({ name: "login" });
-        layout.value = "auth";
-      } else {
-        layout.value = "default";
-      }
+      if (!loggedIn.value) router.push({ name: "login" });
     });
 
-    watch(loggedIn, (newValue) => {
-      if (!newValue) {
-        router.push({ name: "login" });
-        layout.value = "auth";
-      } else {
-        layout.value = "default";
-      }
-    });
-
-    return { layout };
+    return {};
   },
 };
 </script>

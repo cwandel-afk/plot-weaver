@@ -3,37 +3,37 @@
     class="bg-slate-100 sticky top-0 left-0 grid justify-center w-16 h-screen grid-rows-2"
   >
     <ul class="grid-rows-7 grid items-center justify-center w-16">
-      <li>
+      <li class="hover:text-blue-700">
         <NuxtLink to="/" active-class="text-amber-700">
           <HomeIcon class="size-8" />
         </NuxtLink>
       </li>
-      <li>
-        <NuxtLink to="/players" active-class="text-amber-700">
+      <li class="hover:text-blue-700">
+        <NuxtLink active-class="text-amber-700">
           <UsersIcon class="size-8" />
         </NuxtLink>
       </li>
-      <li>
-        <NuxtLink to="/entities" active-class="text-amber-700">
+      <li class="hover:text-blue-700">
+        <NuxtLink active-class="text-amber-700">
           <IdentificationIcon class="size-8" />
         </NuxtLink>
       </li>
-      <li>
-        <NuxtLink to="/map-builder" active-class="text-amber-700">
+      <li class="hover:text-blue-700">
+        <NuxtLink active-class="text-amber-700">
           <GlobeAmericasIcon class="size-8" />
         </NuxtLink>
       </li>
-      <li>
-        <NuxtLink to="/initiative" active-class="text-amber-700">
+      <li class="hover:text-blue-700">
+        <NuxtLink active-class="text-amber-700">
           <NumberedListIcon class="size-8" />
         </NuxtLink>
       </li>
-      <li>
-        <NuxtLink to="/spellbook" active-class="text-amber-700">
+      <li class="hover:text-blue-700">
+        <NuxtLink active-class="text-amber-700">
           <FireIcon class="size-8" />
         </NuxtLink>
       </li>
-      <li>
+      <li class="hover:text-blue-700">
         <NuxtLink to="/projects/list" active-class="text-amber-700">
           <FolderOpenIcon
             class="size-8 group-[.router-link-active]:text-amber-700"
@@ -99,6 +99,6 @@ export default defineNuxtComponent({
 });
 </script>
 
-<style scoped>
+<!-- <style scoped>
 @import url(../assets/css/root-navigation.css);
-</style>
+</style> -->
