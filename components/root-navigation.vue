@@ -34,7 +34,7 @@
         </NuxtLink>
       </li>
       <li class="hover:text-blue-700">
-        <NuxtLink to="/projects/list" active-class="text-amber-700">
+        <NuxtLink to="/campaigns/list" active-class="text-amber-700">
           <FolderOpenIcon
             class="size-8 group-[.router-link-active]:text-amber-700"
           />

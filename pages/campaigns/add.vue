@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useProjects, Project } from "~/composables/useProjects";
+import { useProjects, Project } from "~/composables/useCampaigns";
 import FormRow from "~/layouts/form-row.vue";
 
 const router = useRouter();

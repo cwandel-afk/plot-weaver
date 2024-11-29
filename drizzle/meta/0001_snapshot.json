@@ -1,0 +1,700 @@
+{
+  "id": "a6c9384a-c879-497a-8aad-b0f9ee1e5084",
+  "prevId": "26ab1b3d-2758-4982-a59b-ce7d85d01c7b",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.campaigns": {
+      "name": "campaigns",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "notes": {
+          "name": "notes",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "documents": {
+          "name": "documents",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "campaigns_id_unique": {
+          "name": "campaigns_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.entity": {
+      "name": "entity",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "campaign": {
+          "name": "campaign",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "isPlayerCharacter": {
+          "name": "isPlayerCharacter",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "isNonPlayerCharacter": {
+          "name": "isNonPlayerCharacter",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "isMonster": {
+          "name": "isMonster",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "isCustom": {
+          "name": "isCustom",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "strength": {
+          "name": "strength",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "dexterity": {
+          "name": "dexterity",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "constitution": {
+          "name": "constitution",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "intelligence": {
+          "name": "intelligence",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "wisdom": {
+          "name": "wisdom",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "charisma": {
+          "name": "charisma",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "armorClass": {
+          "name": "armorClass",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "hitPoints": {
+          "name": "hitPoints",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "temporaryHitPoints": {
+          "name": "temporaryHitPoints",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "speed": {
+          "name": "speed",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "walkingSpeed": {
+          "name": "walkingSpeed",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "flyingSpeed": {
+          "name": "flyingSpeed",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "swimmingSpeed": {
+          "name": "swimmingSpeed",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "climbingSpeed": {
+          "name": "climbingSpeed",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "burrowingSpeed": {
+          "name": "burrowingSpeed",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "initiative": {
+          "name": "initiative",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "attackBonus": {
+          "name": "attackBonus",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "damageRolls": {
+          "name": "damageRolls",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "savingThrows": {
+          "name": "savingThrows",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "hitDice": {
+          "name": "hitDice",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "damageResistances": {
+          "name": "damageResistances",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "damageImmunities": {
+          "name": "damageImmunities",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "damageVulnerabilities": {
+          "name": "damageVulnerabilities",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "conditionImmunities": {
+          "name": "conditionImmunities",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passivePerception": {
+          "name": "passivePerception",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "visionTypes": {
+          "name": "visionTypes",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "acrobatics": {
+          "name": "acrobatics",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "animalHandling": {
+          "name": "animalHandling",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "arcana": {
+          "name": "arcana",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "athletics": {
+          "name": "athletics",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "deception": {
+          "name": "deception",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "history": {
+          "name": "history",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "insight": {
+          "name": "insight",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "intimidation": {
+          "name": "intimidation",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "investigation": {
+          "name": "investigation",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "medicine": {
+          "name": "medicine",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "nature": {
+          "name": "nature",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "perception": {
+          "name": "perception",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "performance": {
+          "name": "performance",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "persuasion": {
+          "name": "persuasion",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "religion": {
+          "name": "religion",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sleightOfHand": {
+          "name": "sleightOfHand",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "stealth": {
+          "name": "stealth",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "survival": {
+          "name": "survival",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "traitsAndFeatures": {
+          "name": "traitsAndFeatures",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "innateTraits": {
+          "name": "innateTraits",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "classFeatures": {
+          "name": "classFeatures",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "legendaryActions": {
+          "name": "legendaryActions",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "lairActions": {
+          "name": "lairActions",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "regionalEffects": {
+          "name": "regionalEffects",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "racialTraits": {
+          "name": "racialTraits",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "backgroundFeatures": {
+          "name": "backgroundFeatures",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "spellcastingAndMagic": {
+          "name": "spellcastingAndMagic",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "spellSaveDC": {
+          "name": "spellSaveDC",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "spellAttackBonus": {
+          "name": "spellAttackBonus",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "spellSlots": {
+          "name": "spellSlots",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "preparedKnownSpells": {
+          "name": "preparedKnownSpells",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "spellLevel": {
+          "name": "spellLevel",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "magicalResistances": {
+          "name": "magicalResistances",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "innateSpellcasting": {
+          "name": "innateSpellcasting",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "actions": {
+          "name": "actions",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "multiattack": {
+          "name": "multiattack",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "bonusActions": {
+          "name": "bonusActions",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "reactions": {
+          "name": "reactions",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "specialActions": {
+          "name": "specialActions",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sizeAndSpace": {
+          "name": "sizeAndSpace",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "sizeCategory": {
+          "name": "sizeCategory",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "reach": {
+          "name": "reach",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "spaceOccupied": {
+          "name": "spaceOccupied",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "alignmentAndPersonality": {
+          "name": "alignmentAndPersonality",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "alignment": {
+          "name": "alignment",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ideals": {
+          "name": "ideals",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "bonds": {
+          "name": "bonds",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "flaws": {
+          "name": "flaws",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "personalityTraits": {
+          "name": "personalityTraits",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "languages": {
+          "name": "languages",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "miscellaneousStats": {
+          "name": "miscellaneousStats",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "challengeRating": {
+          "name": "challengeRating",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "experiencePoints": {
+          "name": "experiencePoints",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "toolProficiencies": {
+          "name": "toolProficiencies",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "equipment": {
+          "name": "equipment",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "factionsOrAffiliations": {
+          "name": "factionsOrAffiliations",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "entity_id_unique": {
+          "name": "entity_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.playerCharacter": {
+      "name": "playerCharacter",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "campaign": {
+          "name": "campaign",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "playerClass": {
+          "name": "playerClass",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "level": {
+          "name": "level",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "background": {
+          "name": "background",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "entity": {
+          "name": "entity",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "playerCharacter_id_unique": {
+          "name": "playerCharacter_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

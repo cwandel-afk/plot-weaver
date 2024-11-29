@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from "vue-router";
-import { Project } from "~/composables/useProjects";
+import { Project } from "~/composables/useCampaigns";
 import FormRow from "~/layouts/form-row.vue";
 import { ref, computed } from "vue";
 
