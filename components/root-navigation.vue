@@ -14,7 +14,7 @@
         </NuxtLink>
       </li>
       <li class="hover:text-blue-700">
-        <NuxtLink active-class="text-amber-700">
+        <NuxtLink to="/monsters" active-class="text-amber-700">
           <IdentificationIcon class="size-8" />
         </NuxtLink>
       </li>

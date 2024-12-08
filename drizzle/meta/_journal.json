@@ -15,6 +15,20 @@
       "when": 1732857769357,
       "tag": "0001_noisy_midnight",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1733455777149,
+      "tag": "0002_colossal_ben_grimm",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1733455877937,
+      "tag": "0003_fine_thena",
+      "breakpoints": true
     }
   ]
 }

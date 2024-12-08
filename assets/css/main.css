@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  table {
+    @apply bg-gray-200 border-2 border-gray-400 rounded-md m-2 p-4;
+  }
+
+  thead {
+    @apply bg-gray-300 text-left border-b-2 border-gray-400;
+  }
+
+  th {
+    @apply px-2 py-3;
+  }
+
+  tr {
+    @apply even:bg-gray-300;
+  }
+
+  td {
+    @apply px-3;
+  }
+}
