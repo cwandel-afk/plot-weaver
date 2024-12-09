@@ -207,26 +207,25 @@ export const useMonsters = () => {
       .select()
       .from(monstersTable)
       .where(eq(monstersTable.userEmail, email))
-      .then(
-        (rows) =>
-          (_monsters.value = rows.map(
-            (row) =>
-              new Monster({
-                ...row,
-                savingThrows: row.savingThrows
-                  ? JSON.parse(row.savingThrows)
-                  : null,
-                skills: row.skills ? JSON.parse(row.skills) : null,
-                passivePerception: row.passivePerception
-                  ? JSON.parse(row.passivePerception)
-                  : null,
-                reactions: row.reactions ? JSON.parse(row.reactions) : null,
-                legendaryActions: row.legendaryActions
-                  ? JSON.parse(row.legendaryActions)
-                  : null,
-              })
-          ))
-      );
+      .then((rows) => {
+        _monsters.value = rows.map(
+          (row) =>
+            new Monster({
+              ...row,
+              savingThrows: row.savingThrows
+                ? JSON.parse(row.savingThrows)
+                : null,
+              skills: row.skills ? JSON.parse(row.skills) : null,
+              passivePerception: row.passivePerception
+                ? JSON.parse(row.passivePerception)
+                : null,
+              reactions: row.reactions ? JSON.parse(row.reactions) : null,
+              legendaryActions: row.legendaryActions
+                ? JSON.parse(row.legendaryActions)
+                : null,
+            })
+        );
+      });
     return allMonsters;
   };
 
