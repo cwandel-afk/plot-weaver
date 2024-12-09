@@ -3,8 +3,12 @@
 @tailwind utilities;
 
 @layer base {
+  h1 {
+    @apply text-3xl font-bold;
+  }
+
   table {
-    @apply bg-gray-200 border-2 border-gray-400 rounded-md m-2 p-4;
+    @apply bg-gray-200 border-2 border-gray-400 rounded-md m-2 p-4 w-full;
   }
 
   thead {
@@ -16,10 +20,15 @@
   }
 
   tr {
-    @apply even:bg-gray-300;
+    @apply even:bg-blue-300 hover:ring-4 hover:ring-blue-400;
   }
 
   td {
-    @apply px-3;
+    @apply px-3 py-4;
+  }
+
+  select,
+  input {
+    @apply text-gray-900 border-4 border-gray-800;
   }
 }

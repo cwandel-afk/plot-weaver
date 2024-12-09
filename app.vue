@@ -7,7 +7,7 @@
 <script>
 export default {
   setup() {
-    const { loggedIn, user } = useUserSession();
+    const { loggedIn, user, session } = useUserSession();
 
     const router = useRouter();
     useHead({
@@ -15,7 +15,12 @@ export default {
     });
 
     onMounted(() => {
-      console.log("mounted", user.value);
+      console.group("Login Mounted");
+      console.log("User:", user.value);
+      console.log("Session:", session.value);
+      console.log("Session User", session.value?.user);
+      console.log("Session User Email:", session.value?.user?.email);
+      console.groupEnd();
       if (!loggedIn.value) router.push({ name: "login" });
     });
 

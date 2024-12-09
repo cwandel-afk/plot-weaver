@@ -1,19 +1,15 @@
 <script setup lang="ts">
-import { useMonsters, Monster } from "@/composables/useMonsters";
+import { Monster } from "@/composables/useMonsters";
 import monstersData from "@/assets/data/monsters.json";
-
-const { addMonster } = useMonsters();
 const monsters = ref<Monster[]>([]);
 
 const parse_speed = (speed: any) => {
-  console.log(`speed: ${JSON.stringify(speed)}`);
   return Object.entries(speed)
     .map((spd) => `${spd[1]}`)
     .join(", ");
 };
 
 const parse_stats = (stats: any) => {
-  console.log(`stats: ${JSON.stringify(stats)}`);
   return Object.entries(stats)
     .map((stat) => `${stat[1]}`)
     .join(", ");

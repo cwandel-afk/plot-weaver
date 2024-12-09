@@ -18,7 +18,7 @@ const selectTab = (tab: string) => {
           <MonstersProvided />
         </div>
         <div v-if="selectedTab === 'Custom Monsters'">
-          <h1>Tab 2 Content</h1>
+          <MonstersCustom />
         </div>
         <div v-if="selectedTab === 'Community Monsters'">
           <h1>Tab 3 Content</h1>
