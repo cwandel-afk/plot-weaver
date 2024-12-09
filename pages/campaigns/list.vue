@@ -1,14 +1,10 @@
 <script setup lang="ts">
-import { Campaign, useCampaigns } from "~/composables/useCampaigns";
+import { useCampaigns } from "~/composables/useCampaigns";
 
-const { getCampaigns } = useCampaigns();
+const { getCampaigns, campaigns } = useCampaigns();
 
-const campaigns = ref<Campaign[]>([]);
-
-onMounted(async () => {
-  await getCampaigns().then((data) => {
-    campaigns.value = data;
-  });
+onMounted(() => {
+  getCampaigns();
 });
 </script>
 

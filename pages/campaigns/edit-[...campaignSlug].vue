@@ -1,55 +1,55 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from "vue-router";
-import { Project } from "~/composables/useCampaigns";
+import { Campaign } from "~/composables/useCampaigns";
 import FormRow from "~/layouts/form-row.vue";
 import { ref, computed } from "vue";
 
 const router = useRouter();
 const route = useRoute();
 
-const { findProject, updateProject, removeProject } = useProjects();
+const { findCampaign, updateCampaign, removeCampaign } = useCampaigns();
 
 // Use computed to track changes in route parameters
-const projectId = computed(() => route.params.projectSlug?.toString() || "");
+const campaignId = computed(() => route.params.campaignSlug?.toString() || "");
 
-// Find the project reactively
-const project = computed(() => findProject(projectId.value));
+// Find the campaign reactively
+const campaign = computed(() => findCampaign(campaignId.value));
 
 // Reactive refs for form data
-const name = ref(project.value?.name);
-const description = ref(project.value?.description);
-const notes = ref(project.value?.notes);
+const name = ref(campaign.value?.name);
+const description = ref(campaign.value?.description);
+const notes = ref(campaign.value?.notes);
 
-// Watch for project changes to update form data
-watch(project, (newProject) => {
-  name.value = newProject?.name || "";
-  description.value = newProject?.description || "";
-  notes.value = newProject?.notes || "";
+// Watch for campaign changes to update form data
+watch(campaign, (newCampaign) => {
+  name.value = newCampaign?.name || "";
+  description.value = newCampaign?.description || "";
+  notes.value = newCampaign?.notes || "";
 });
 
-// Save Project
-const saveProject = () => {
-  if (!project.value) return;
+// Save Campaign
+const saveCampaign = () => {
+  if (!campaign.value) return;
 
-  updateProject(
-    project.value,
-    new Project({
-      id: project.value.id,
+  updateCampaign(
+    campaign.value,
+    new Campaign({
+      id: campaign.value.id,
       name: name.value,
       description: description.value,
       notes: notes.value,
     })
   );
 
-  router.replace({ name: "projects-list" });
+  router.replace({ name: "campaigns-list" });
 };
 
-// Delete Project
-const deleteProject = () => {
-  if (!project.value) return;
+// Delete Campaign
+const deleteCampaign = () => {
+  if (!campaign.value) return;
 
-  removeProject(project.value);
-  router.replace({ name: "projects-list" });
+  removeCampaign(campaign.value);
+  router.replace({ name: "campaigns-list" });
 };
 </script>
 
@@ -59,9 +59,9 @@ const deleteProject = () => {
       <div class="grid items-center justify-center w-full h-full">
         <form
           class="rounded-xl grid-rows-7 grid items-center justify-center gap-4 p-3 bg-gray-700 border-2 border-gray-500 shadow-lg"
-          @submit.prevent="saveProject"
+          @submit.prevent="saveCampaign"
         >
-          <FormRow label="Project Name" fieldId="name" class="row-span-1">
+          <FormRow label="Campaign Name" fieldId="name" class="row-span-1">
             <input
               type="text"
               id="name"
@@ -105,21 +105,21 @@ const deleteProject = () => {
             type="submit"
             class="p-4 text-white border-4 border-purple-700"
           >
-            Save Project
+            Save Campaign
           </button>
         </form>
         <div class="flex justify-between mt-4">
           <button
             class="p-4 text-white border-4 border-red-700"
-            @click="router.replace({ name: 'projects-list' })"
+            @click="router.replace({ name: 'campaigns-list' })"
           >
             Cancel
           </button>
           <button
             class="p-4 text-white border-4 border-red-700"
-            @click="deleteProject()"
+            @click="deleteCampaign()"
           >
-            Delete Project
+            Delete Campaign
           </button>
         </div>
       </div>

@@ -6,6 +6,7 @@ type CampaignType = InferSelectModel<typeof campaignsTable>;
 
 export class Campaign implements CampaignType {
   id = "";
+  userEmail: string = "";
   name = "";
   description = "";
   notes: string | null = null;
@@ -27,9 +28,6 @@ export const useCampaigns = () => {
       .insert(campaignsTable)
       .values({
         ...campaign,
-        documents: campaign.documents
-          ? JSON.stringify(campaign.documents)
-          : null,
       })
       .returning()
       .then(() => {
@@ -60,9 +58,6 @@ export const useCampaigns = () => {
     db.update(campaignsTable)
       .set({
         ...updatedCampaign,
-        documents: updatedCampaign.documents
-          ? JSON.stringify(updatedCampaign.documents)
-          : null,
       })
       .where(eq(campaignsTable.id, campaign.id))
       .then(() => {
@@ -91,7 +86,6 @@ export const useCampaigns = () => {
             (row) =>
               new Campaign({
                 ...row,
-                documents: row.documents ? JSON.parse(row.documents) : null,
               })
           ))
       );

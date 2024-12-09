@@ -21,8 +21,8 @@ monstersData.forEach(async (monsterData) => {
     size: monsterData.size,
     type: monsterData.type,
     alignment: monsterData.alignment,
-    armourClass: monsterData.armour_class,
-    armourClassType: monsterData.armour_class_type,
+    armorClass: monsterData.armour_class,
+    armorClassType: monsterData.armour_class_type,
     hitPoints: monsterData.hit_points,
     hitPointsCalculation: monsterData.hit_points_calculation,
     speed: parse_speed(monsterData.speed),
@@ -41,7 +41,6 @@ monstersData.forEach(async (monsterData) => {
     legendaryActions: JSON.stringify(monsterData.legendary_actions),
   });
 
-  // await addMonster(monster);
   monsters.value.push(monster);
 });
 </script>
@@ -67,7 +66,7 @@ monstersData.forEach(async (monsterData) => {
           <td>{{ monster.size }}</td>
           <td>{{ monster.type }}</td>
           <td>{{ monster.alignment }}</td>
-          <td>{{ monster.armourClass }}</td>
+          <td>{{ monster.armorClass }}</td>
           <td>{{ monster.hitPoints }}</td>
           <td>{{ monster.Speed }}</td>
           <td>{{ monster.Stats }}</td>
