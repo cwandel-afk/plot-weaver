@@ -50,6 +50,13 @@
       "when": 1733716904026,
       "tag": "0006_hard_blindfold",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1733791303533,
+      "tag": "0007_little_zarda",
+      "breakpoints": true
     }
   ]
 }
