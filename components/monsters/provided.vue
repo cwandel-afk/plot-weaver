@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Monster } from "@/composables/useMonsters";
 import monstersData from "@/assets/data/monsters.json";
+import { Monster } from "~/models/monster.model";
 const monsters = ref<Monster[]>([]);
 
 const parse_speed = (speed: any) => {

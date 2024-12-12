@@ -1,86 +1,63 @@
 <script setup>
-import { useMonsters, Monster } from "~/composables/useMonsters";
+import { useMonsters } from "~/composables/useMonsters";
 import FormField from "~/layouts/form-field.vue";
-import FormRow from "~/layouts/form-row.vue";
 import FormStatField from "~/layouts/form-stat-field.vue";
 
 const router = useRouter();
 const { addMonster } = useMonsters();
 const { user } = useUserSession();
 
-const name = ref("");
-const type = ref("");
-const hitPoints = ref(0);
-const armorClass = ref(0);
-const speed = ref(0);
-const stats = ref({
-  strength: 0,
-  dexterity: 0,
-  constitution: 0,
-  intelligence: 0,
-  wisdom: 0,
-  charisma: 0,
+const monster = ref({
+  name: "",
+  type: "",
+  hitPoints: 0,
+  armorClass: 0,
+  speed: 0,
+  stats: {
+    strength: 0,
+    dexterity: 0,
+    constitution: 0,
+    intelligence: 0,
+    wisdom: 0,
+    charisma: 0,
+  },
+  size: "",
+  alignment: "",
+  armorClassType: "",
+  hitPointsCalculation: "",
+  savingThrows: "",
+  skills: "",
+  immunitiesResistances: "",
+  senses: "",
+  passivePerception: "",
+  languages: "",
+  challengeRating: "",
+  experience: "",
+  traits: "",
+  actions: "",
+  reactions: "",
+  legendaryActions: "",
 });
-const size = ref("");
-const alignment = ref("");
-const armourClassType = ref("");
-const hitPointsCalculation = ref("");
-const savingThrows = ref("");
-const skills = ref("");
-const immunitiesResistances = ref("");
-const senses = ref("");
-const passivePerception = ref("");
-const languages = ref("");
-const challengeRating = ref("");
-const experience = ref("");
-const traits = ref("");
-const actions = ref("");
-const reactions = ref("");
-const legendaryActions = ref("");
+
+const createMonster = async () => {
+  addMonster({
+    userEmail: user.value.email,
+    stats: getStats(),
+    ...monster.value,
+  }).then(() => {
+    router.push("/monsters");
+  });
+};
 
 const getStats = () => {
   return {
-    strength: stats.value.strength,
-    dexterity: stats.value.dexterity,
-    constitution: stats.value.constitution,
-    intelligence: stats.value.intelligence,
-    wisdom: stats.value.wisdom,
-    charisma: stats.value.charisma,
+    strength: monster.value.stats.strength,
+    dexterity: monster.value.stats.dexterity,
+    constitution: monster.value.stats.constitution,
+    intelligence: monster.value.stats.intelligence,
+    wisdom: monster.value.stats.wisdom,
+    charisma: monster.value.stats.charisma,
   };
-};
-
-const createMonster = async () => {
-  const newID = crypto.randomUUID();
-  addMonster(
-    new Monster({
-      id: newID,
-      userEmail: user.value.email,
-      name: name.value,
-      type: type.value,
-      hitPoints: hitPoints.value,
-      armorClass: armorClass.value,
-      speed: speed.value,
-      size: size.value,
-      alignment: alignment.value,
-      armourClassType: armourClassType.value,
-      hitPointsCalculation: hitPointsCalculation.value,
-      stats: getStats(),
-      savingThrows: savingThrows.value,
-      skills: skills.value,
-      immunitiesResistances: immunitiesResistances.value,
-      senses: senses.value,
-      passivePerception: passivePerception.value,
-      languages: languages.value,
-      challengeRating: challengeRating.value,
-      experience: experience.value,
-      traits: traits.value,
-      actions: actions.value,
-      reactions: reactions.value,
-      legendaryActions: legendaryActions.value,
-    })
-  );
-
-  router.replace({ path: "/monsters" });
 };
 </script>
 
@@ -98,13 +75,13 @@ const createMonster = async () => {
                 type="text"
                 id="name"
                 name="name"
-                v-model="name"
+                v-model="monster.name"
                 class="w-96 p-2 border-4 border-gray-800"
               />
             </FormField>
             <FormField fieldId="type" label="Type">
               <select
-                v-model="type"
+                v-model="monster.type"
                 id="type"
                 class="placeholder:text-black placeholder:font-bold w-56 p-2 border-4 border-gray-800"
                 placeholder="Select a type"
@@ -132,7 +109,7 @@ const createMonster = async () => {
                 type="number"
                 id="hitPoints"
                 name="hitPoints"
-                v-model="hitPoints"
+                v-model="monster.hitPoints"
                 class="w-28 p-2 mr-3 border-4 border-gray-800"
               />
             </FormField>
@@ -141,7 +118,7 @@ const createMonster = async () => {
                 type="number"
                 id="armorClass"
                 name="armorClass"
-                v-model="armorClass"
+                v-model="monster.armorClass"
                 class="w-28 p-2 mr-3 border-4 border-gray-800"
               />
             </FormField>
@@ -150,7 +127,7 @@ const createMonster = async () => {
                 type="number"
                 id="speed"
                 name="speed"
-                v-model="speed"
+                v-model="monster.speed"
                 class="w-28 p-2 mr-3 border-4 border-gray-800"
               />
             </FormField>
@@ -158,7 +135,7 @@ const createMonster = async () => {
               <select
                 id="size"
                 name="size"
-                v-model="size"
+                v-model="monster.size"
                 class="w-28 p-2 mr-3"
               >
                 <option value="Tiny">Tiny</option>
@@ -176,7 +153,7 @@ const createMonster = async () => {
                 type="text"
                 id="hitPointsCalculation"
                 name="hitPointsCalculation"
-                v-model="hitPointsCalculation"
+                v-model="monster.hitPointsCalculation"
                 class="w-32 p-2 border-4 border-gray-800"
               />
             </FormField>
@@ -185,7 +162,7 @@ const createMonster = async () => {
                 type="text"
                 id="armourClassType"
                 name="armourClassType"
-                v-model="armourClassType"
+                v-model="monster.armourClassType"
                 class="w-52 p-2 border-4 border-gray-800"
               />
             </FormField>
@@ -193,7 +170,7 @@ const createMonster = async () => {
               <select
                 id="alignment"
                 name="alignment"
-                v-model="alignment"
+                v-model="monster.alignment"
                 class="w-52 p-2"
               >
                 <option value="Lawful Good">Lawful Good</option>
@@ -214,7 +191,7 @@ const createMonster = async () => {
                 type="number"
                 id="strength"
                 name="strength"
-                v-model="stats.strength"
+                v-model="monster.stats.strength"
                 class="w-full h-full p-2 text-4xl border-4 border-gray-800"
               />
             </FormStatField>
@@ -223,7 +200,7 @@ const createMonster = async () => {
                 type="number"
                 id="dexterity"
                 name="dexterity"
-                v-model="stats.dexterity"
+                v-model="monster.stats.dexterity"
                 class="w-full h-full p-2 text-4xl border-4 border-gray-800"
               />
             </FormStatField>
@@ -232,7 +209,7 @@ const createMonster = async () => {
                 type="number"
                 id="constitution"
                 name="constitution"
-                v-model="stats.constitution"
+                v-model="monster.stats.constitution"
                 class="w-full h-full p-2 text-4xl border-4 border-gray-800"
               />
             </FormStatField>
@@ -241,7 +218,7 @@ const createMonster = async () => {
                 type="number"
                 id="intelligence"
                 name="intelligence"
-                v-model="stats.intelligence"
+                v-model="monster.stats.intelligence"
                 class="w-full h-full p-2 text-4xl border-4 border-gray-800"
               />
             </FormStatField>
@@ -250,7 +227,7 @@ const createMonster = async () => {
                 type="number"
                 id="wisdom"
                 name="wisdom"
-                v-model="stats.wisdom"
+                v-model="monster.stats.wisdom"
                 class="w-full h-full p-2 text-4xl border-4 border-gray-800"
               />
             </FormStatField>
@@ -259,7 +236,7 @@ const createMonster = async () => {
                 type="number"
                 id="charisma"
                 name="charisma"
-                v-model="stats.charisma"
+                v-model="monster.stats.charisma"
                 class="w-full h-full p-2 text-4xl border-4 border-gray-800"
               />
             </FormStatField>
@@ -270,7 +247,7 @@ const createMonster = async () => {
                 type="text"
                 id="savingThrows"
                 name="savingThrows"
-                v-model="savingThrows"
+                v-model="monster.savingThrows"
                 class="w-96 p-2 border-4 border-gray-800"
               />
             </FormField>
@@ -280,7 +257,7 @@ const createMonster = async () => {
                 type="text"
                 id="skills"
                 name="skills"
-                v-model="skills"
+                v-model="monster.skills"
                 class="w-96 p-2 border-4 border-gray-800"
               />
             </FormField>
@@ -294,7 +271,7 @@ const createMonster = async () => {
                 type="text"
                 id="immunitiesResistances"
                 name="immunitiesResistances"
-                v-model="immunitiesResistances"
+                v-model="monster.immunitiesResistances"
                 class="w-96 p-2 border-4 border-gray-800"
               />
             </FormField>
@@ -303,7 +280,7 @@ const createMonster = async () => {
                 type="text"
                 id="senses"
                 name="senses"
-                v-model="senses"
+                v-model="monster.senses"
                 class="w-96 p-2 border-4 border-gray-800"
               />
             </FormField>
@@ -314,7 +291,7 @@ const createMonster = async () => {
                 type="text"
                 id="passivePerception"
                 name="passivePerception"
-                v-model="passivePerception"
+                v-model="monster.passivePerception"
                 class="w-96 p-2 border-4 border-gray-800"
               />
             </FormField>
@@ -323,7 +300,7 @@ const createMonster = async () => {
                 type="text"
                 id="languages"
                 name="languages"
-                v-model="languages"
+                v-model="monster.languages"
                 class="w-96 p-2 border-4 border-gray-800"
               />
             </FormField>
@@ -334,7 +311,7 @@ const createMonster = async () => {
                 type="text"
                 id="challengeRating"
                 name="challengeRating"
-                v-model="challengeRating"
+                v-model="monster.challengeRating"
                 class="w-96 p-2 border-4 border-gray-800"
               />
             </FormField>
@@ -343,7 +320,7 @@ const createMonster = async () => {
                 type="text"
                 id="experience"
                 name="experience"
-                v-model="experience"
+                v-model="monster.experience"
                 class="w-96 p-2 border-4 border-gray-800"
               />
             </FormField>
@@ -354,7 +331,7 @@ const createMonster = async () => {
                 type="text"
                 id="traits"
                 name="traits"
-                v-model="traits"
+                v-model="monster.traits"
                 class="w-96 p-2 border-4 border-gray-800"
               />
             </FormField>
@@ -363,7 +340,7 @@ const createMonster = async () => {
                 type="text"
                 id="actions"
                 name="actions"
-                v-model="actions"
+                v-model="monster.actions"
                 class="w-96 p-2 border-4 border-gray-800"
               />
             </FormField>
@@ -374,7 +351,7 @@ const createMonster = async () => {
                 type="text"
                 id="reactions"
                 name="reactions"
-                v-model="reactions"
+                v-model="monster.reactions"
                 class="w-96 p-2 border-4 border-gray-800"
               />
             </FormField>
@@ -383,7 +360,7 @@ const createMonster = async () => {
                 type="text"
                 id="legendaryActions"
                 name="legendaryActions"
-                v-model="legendaryActions"
+                v-model="monster.legendaryActions"
                 class="w-96 p-2 border-4 border-gray-800"
               />
             </FormField>

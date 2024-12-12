@@ -1,132 +1,114 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import { useMonsters, Monster } from "~/composables/useMonsters";
+import { useMonsters } from "~/composables/useMonsters";
 import FormField from "~/layouts/form-field.vue";
 import FormStatField from "~/layouts/form-stat-field.vue";
 import { useRouter, useRoute } from "vue-router";
 
 const router = useRouter();
 const route = useRoute();
-const { findMonster, updateMonster, removeMonster } = useMonsters();
+const { findMonster, updateMonster, removeMonster, _monsters } = useMonsters();
 const { user } = useUserSession();
 
 const monsterSlug = Array.isArray(route.params.monsterSlug)
   ? route.params.monsterSlug[0]
   : route.params.monsterSlug;
-const monster = ref(null);
 
-const name = ref("");
-const type = ref("");
-const hitPoints = ref(0);
-const armorClass = ref(0);
-const speed = ref(0);
-const stats = ref({
-  strength: 0,
-  dexterity: 0,
-  constitution: 0,
-  intelligence: 0,
-  wisdom: 0,
-  charisma: 0,
+const monster = ref({
+  id: "",
+  name: "",
+  type: "",
+  hitPoints: 0,
+  armorClass: 0,
+  speed: 0,
+  stats: {
+    strength: 0,
+    dexterity: 0,
+    constitution: 0,
+    intelligence: 0,
+    wisdom: 0,
+    charisma: 0,
+  },
+  size: "",
+  alignment: "",
+  armorClassType: "",
+  hitPointsCalculation: "",
+  savingThrows: "",
+  skills: "",
+  immunitiesResistances: "",
+  senses: "",
+  passivePerception: "",
+  languages: "",
+  challengeRating: "",
+  experience: "",
+  traits: "",
+  actions: "",
+  reactions: "",
+  legendaryActions: "",
 });
-const size = ref("");
-const alignment = ref("");
-const armorClassType = ref("");
-const hitPointsCalculation = ref("");
-const savingThrows = ref("");
-const skills = ref("");
-const immunitiesResistances = ref("");
-const senses = ref("");
-const passivePerception = ref("");
-const languages = ref("");
-const challengeRating = ref("");
-const experience = ref("");
-const traits = ref("");
-const actions = ref("");
-const reactions = ref("");
-const legendaryActions = ref("");
 
 const getStats = () => {
   return {
-    strength: stats.value.strength,
-    dexterity: stats.value.dexterity,
-    constitution: stats.value.constitution,
-    intelligence: stats.value.intelligence,
-    wisdom: stats.value.wisdom,
-    charisma: stats.value.charisma,
+    strength: monster.value.stats.strength,
+    dexterity: monster.value.stats.dexterity,
+    constitution: monster.value.stats.constitution,
+    intelligence: monster.value.stats.intelligence,
+    wisdom: monster.value.stats.wisdom,
+    charisma: monster.value.stats.charisma,
   };
 };
 
 const loadMonster = async () => {
-  monster.value = findMonster(monsterSlug) || null;
-  if (monster.value) {
-    name.value = monster.value.name;
-    type.value = monster.value.type || "";
-    hitPoints.value = monster.value.hitPoints
-      ? parseInt(monster.value.hitPoints)
-      : 0;
-    armorClass.value = monster.value.armorClass
-      ? parseInt(monster.value.armorClass)
-      : 0;
-    speed.value = monster.value.speed ? parseInt(monster.value.speed) : 0;
-    stats.value = JSON.parse(monster.value.stats);
-    size.value = monster.value.size || "";
-    alignment.value = monster.value.alignment || "";
-    armorClassType.value = monster.value.armorClassType || "";
-    hitPointsCalculation.value = monster.value.hitPointsCalculation || "";
-    savingThrows.value = monster.value.savingThrows || "";
-    skills.value = monster.value.skills || "";
-    immunitiesResistances.value = monster.value.immunitiesResistances || "";
-    senses.value = monster.value.senses || "";
-    passivePerception.value = monster.value.passivePerception || "";
-    languages.value = monster.value.languages || "";
-    challengeRating.value = monster.value.challengeRating || "";
-    experience.value = monster.value.experience || "";
-    traits.value = monster.value.traits || "";
-    actions.value = monster.value.actions || "";
-    reactions.value = monster.value.reactions || "";
-    legendaryActions.value = monster.value.legendaryActions || "";
+  const mon = findMonster(monsterSlug) || null;
+  if (mon && typeof mon.stats === "string") {
+    try {
+      mon.stats = JSON.parse(mon.stats);
+    } catch (error) {
+      console.error("Error parsing monster stats", error);
+    }
+  }
+  if (mon) {
+    monster.value = {
+      ...mon,
+      stats: {
+        strength: mon.stats.strength,
+        dexterity: mon.stats.dexterity,
+        constitution: mon.stats.constitution,
+        intelligence: mon.stats.intelligence,
+        wisdom: mon.stats.wisdom,
+        charisma: mon.stats.charisma,
+      },
+    };
   }
 };
 
-const updateMonsterData = async () => {
+const update = async () => {
   if (monster.value) {
-    updateMonster(
-      monster.value,
-      new Monster({
-        id: monster.value.id,
-        userEmail: user.value.email,
-        name: name.value,
-        type: type.value,
-        hitPoints: hitPoints.value.toString(),
-        armorClass: armorClass.value.toString(),
-        speed: speed.value.toString(),
-        size: size.value,
-        alignment: alignment.value,
-        armorClassType: armorClassType.value,
-        hitPointsCalculation: hitPointsCalculation.value,
-        stats: getStats(),
-        savingThrows: savingThrows.value,
-        skills: skills.value,
-        immunitiesResistances: immunitiesResistances.value,
-        senses: senses.value,
-        passivePerception: passivePerception.value,
-        languages: languages.value,
-        challengeRating: challengeRating.value,
-        experience: experience.value,
-        traits: traits.value,
-        actions: actions.value,
-        reactions: reactions.value,
-        legendaryActions: legendaryActions.value,
-      })
-    );
+    const mon = {
+      ...monster.value,
+      stats: getStats(),
+    };
 
-    router.replace({ path: "/monsters" });
+    await updateMonster(mon)
+      .then(() => {
+        console.log("Monster updated");
+        router.replace({ path: "/monsters" });
+      })
+      .catch((error) => {
+        console.error("Error updating monster", error);
+      });
   }
 };
 
 const remove = async (monster) => {
-  removeMonster(monster);
-  router.replace({ path: "/monsters" });
+  removeMonster(monster)
+    .then(() => {
+      console.log("Monster removed");
+      router.replace({ path: "/monsters" });
+    })
+    .catch((error) => {
+      console.error("Error removing monster", error);
+    });
 };
 
 onMounted(() => {
@@ -140,7 +122,7 @@ onMounted(() => {
       <div class="grid items-center justify-center w-full h-full">
         <form
           class="rounded-xl flex flex-col items-center justify-center p-3 space-y-3 bg-gray-700 border-2 border-gray-500 shadow-lg"
-          @submit.prevent="updateMonsterData"
+          @submit.prevent="update"
         >
           <div class="flex items-center w-full space-x-3">
             <FormField fieldId="name" label="Monster Name">
@@ -148,13 +130,13 @@ onMounted(() => {
                 type="text"
                 id="name"
                 name="name"
-                v-model="name"
+                v-model="monster.name"
                 class="w-96 p-2 border-4 border-gray-800"
               />
             </FormField>
             <FormField fieldId="type" label="Type">
               <select
-                v-model="type"
+                v-model="monster.type"
                 id="type"
                 class="placeholder:text-black placeholder:font-bold w-56 p-2 border-4 border-gray-800"
                 placeholder="Select a type"
@@ -182,7 +164,7 @@ onMounted(() => {
                 type="number"
                 id="hitPoints"
                 name="hitPoints"
-                v-model="hitPoints"
+                v-model="monster.hitPoints"
                 class="w-28 p-2 mr-3 border-4 border-gray-800"
               />
             </FormField>
@@ -191,7 +173,7 @@ onMounted(() => {
                 type="number"
                 id="armorClass"
                 name="armorClass"
-                v-model="armorClass"
+                v-model="monster.armorClass"
                 class="w-28 p-2 mr-3 border-4 border-gray-800"
               />
             </FormField>
@@ -200,7 +182,7 @@ onMounted(() => {
                 type="number"
                 id="speed"
                 name="speed"
-                v-model="speed"
+                v-model="monster.speed"
                 class="w-28 p-2 mr-3 border-4 border-gray-800"
               />
             </FormField>
@@ -208,7 +190,7 @@ onMounted(() => {
               <select
                 id="size"
                 name="size"
-                v-model="size"
+                v-model="monster.size"
                 class="w-28 p-2 mr-3"
               >
                 <option value="Tiny">Tiny</option>
@@ -226,7 +208,7 @@ onMounted(() => {
                 type="text"
                 id="hitPointsCalculation"
                 name="hitPointsCalculation"
-                v-model="hitPointsCalculation"
+                v-model="monster.hitPointsCalculation"
                 class="w-32 p-2 border-4 border-gray-800"
               />
             </FormField>
@@ -235,7 +217,7 @@ onMounted(() => {
                 type="text"
                 id="armorClassType"
                 name="armorClassType"
-                v-model="armorClassType"
+                v-model="monster.armorClassType"
                 class="w-52 p-2 border-4 border-gray-800"
               />
             </FormField>
@@ -243,7 +225,7 @@ onMounted(() => {
               <select
                 id="alignment"
                 name="alignment"
-                v-model="alignment"
+                v-model="monster.alignment"
                 class="w-52 p-2"
               >
                 <option value="Lawful Good">Lawful Good</option>
@@ -264,7 +246,7 @@ onMounted(() => {
                 type="number"
                 id="strength"
                 name="strength"
-                v-model="stats.strength"
+                v-model="monster.stats.strength"
                 class="w-full h-full p-2 text-4xl border-4 border-gray-800"
               />
             </FormStatField>
@@ -273,7 +255,7 @@ onMounted(() => {
                 type="number"
                 id="dexterity"
                 name="dexterity"
-                v-model="stats.dexterity"
+                v-model="monster.stats.dexterity"
                 class="w-full h-full p-2 text-4xl border-4 border-gray-800"
               />
             </FormStatField>
@@ -282,7 +264,7 @@ onMounted(() => {
                 type="number"
                 id="constitution"
                 name="constitution"
-                v-model="stats.constitution"
+                v-model="monster.stats.constitution"
                 class="w-full h-full p-2 text-4xl border-4 border-gray-800"
               />
             </FormStatField>
@@ -291,7 +273,7 @@ onMounted(() => {
                 type="number"
                 id="intelligence"
                 name="intelligence"
-                v-model="stats.intelligence"
+                v-model="monster.stats.intelligence"
                 class="w-full h-full p-2 text-4xl border-4 border-gray-800"
               />
             </FormStatField>
@@ -300,7 +282,7 @@ onMounted(() => {
                 type="number"
                 id="wisdom"
                 name="wisdom"
-                v-model="stats.wisdom"
+                v-model="monster.stats.wisdom"
                 class="w-full h-full p-2 text-4xl border-4 border-gray-800"
               />
             </FormStatField>
@@ -309,7 +291,7 @@ onMounted(() => {
                 type="number"
                 id="charisma"
                 name="charisma"
-                v-model="stats.charisma"
+                v-model="monster.stats.charisma"
                 class="w-full h-full p-2 text-4xl border-4 border-gray-800"
               />
             </FormStatField>
@@ -320,7 +302,7 @@ onMounted(() => {
                 type="text"
                 id="savingThrows"
                 name="savingThrows"
-                v-model="savingThrows"
+                v-model="monster.savingThrows"
                 class="w-96 p-2 border-4 border-gray-800"
               />
             </FormField>
@@ -330,7 +312,7 @@ onMounted(() => {
                 type="text"
                 id="skills"
                 name="skills"
-                v-model="skills"
+                v-model="monster.skills"
                 class="w-96 p-2 border-4 border-gray-800"
               />
             </FormField>
@@ -344,7 +326,7 @@ onMounted(() => {
                 type="text"
                 id="immunitiesResistances"
                 name="immunitiesResistances"
-                v-model="immunitiesResistances"
+                v-model="monster.immunitiesResistances"
                 class="w-96 p-2 border-4 border-gray-800"
               />
             </FormField>
@@ -353,7 +335,7 @@ onMounted(() => {
                 type="text"
                 id="senses"
                 name="senses"
-                v-model="senses"
+                v-model="monster.senses"
                 class="w-96 p-2 border-4 border-gray-800"
               />
             </FormField>
@@ -364,7 +346,7 @@ onMounted(() => {
                 type="text"
                 id="passivePerception"
                 name="passivePerception"
-                v-model="passivePerception"
+                v-model="monster.passivePerception"
                 class="w-96 p-2 border-4 border-gray-800"
               />
             </FormField>
@@ -373,7 +355,7 @@ onMounted(() => {
                 type="text"
                 id="languages"
                 name="languages"
-                v-model="languages"
+                v-model="monster.languages"
                 class="w-96 p-2 border-4 border-gray-800"
               />
             </FormField>
@@ -384,7 +366,7 @@ onMounted(() => {
                 type="text"
                 id="challengeRating"
                 name="challengeRating"
-                v-model="challengeRating"
+                v-model="monster.challengeRating"
                 class="w-96 p-2 border-4 border-gray-800"
               />
             </FormField>
@@ -393,7 +375,7 @@ onMounted(() => {
                 type="text"
                 id="experience"
                 name="experience"
-                v-model="experience"
+                v-model="monster.experience"
                 class="w-96 p-2 border-4 border-gray-800"
               />
             </FormField>
@@ -404,7 +386,7 @@ onMounted(() => {
                 type="text"
                 id="traits"
                 name="traits"
-                v-model="traits"
+                v-model="monster.traits"
                 class="w-96 p-2 border-4 border-gray-800"
               />
             </FormField>
@@ -413,7 +395,7 @@ onMounted(() => {
                 type="text"
                 id="actions"
                 name="actions"
-                v-model="actions"
+                v-model="monster.actions"
                 class="w-96 p-2 border-4 border-gray-800"
               />
             </FormField>
@@ -424,7 +406,7 @@ onMounted(() => {
                 type="text"
                 id="reactions"
                 name="reactions"
-                v-model="reactions"
+                v-model="monster.reactions"
                 class="w-96 p-2 border-4 border-gray-800"
               />
             </FormField>
@@ -433,7 +415,7 @@ onMounted(() => {
                 type="text"
                 id="legendaryActions"
                 name="legendaryActions"
-                v-model="legendaryActions"
+                v-model="monster.legendaryActions"
                 class="w-96 p-2 border-4 border-gray-800"
               />
             </FormField>

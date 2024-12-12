@@ -1,14 +1,7 @@
-import { drizzle } from "drizzle-orm/pglite";
-import { Pool } from "pg";
+import { drizzle } from "drizzle-orm/neon-http";
 
-// Use your Neon connection details here
-const pool = new Pool({
-  host: process.env.NEON_HOST,
-  port: 5432,
-  user: process.env.NEON_USER,
-  password: process.env.NEON_PASSWORD,
-  database: process.env.NEON_DATABASE,
-  ssl: true, // Neon requires SSL
-});
+if (process.env.NEON_CONNECTION_STRING === undefined) {
+  throw new Error("NEON_CONNECTION_STRING is not defined");
+}
 
-export const db = drizzle(pool);
+export const db = drizzle(process.env.NEON_CONNECTION_STRING ?? "");
