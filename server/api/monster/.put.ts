@@ -29,7 +29,6 @@ export default defineEventHandler(async (event) => {
     .where(eq(monstersTable.id, monster.id))
     .returning()
     .then((mon) => {
-      console.log("\n\n --> Monster updated successfully", mon);
       return mon[0];
     })
     .catch((err) => {

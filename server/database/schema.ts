@@ -9,7 +9,7 @@ import {
 
 export const campaignsTable = pgTable("campaigns", {
   id: text("id").primaryKey().unique(),
-  userEmail: text("user_id").notNull(),
+  userEmail: text("userEmail").notNull(),
   name: text("name").notNull(),
   description: text("description").notNull(),
   notes: text("notes"),

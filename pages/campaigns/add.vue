@@ -1,6 +1,6 @@
 <script setup>
-import { useCampaigns, Campaign } from "~/composables/useCampaigns";
 import FormRow from "~/layouts/form-row.vue";
+import { Campaign } from "~/models/campaign.model";
 
 const router = useRouter();
 const { addCampaign } = useCampaigns();
@@ -11,11 +11,9 @@ const description = ref("");
 const notes = ref("");
 
 const createCampaign = async () => {
-  const newID = crypto.randomUUID();
-  addCampaign(
+  await addCampaign(
     new Campaign({
-      id: newID,
-      user_id: user.value.email,
+      userEmail: user.value.email,
       name: name.value,
       description: description.value,
       notes: notes.value,

@@ -48,7 +48,6 @@ export default defineEventHandler(async (event) => {
     })
     .returning()
     .then((mon) => {
-      console.log("\n\n --> Monster added successfully", mon);
       return mon[0];
     })
     .catch((err) => {

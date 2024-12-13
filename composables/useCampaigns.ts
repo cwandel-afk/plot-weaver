@@ -1,95 +1,71 @@
-import { campaignsTable } from "~/server/database/schema";
-import { type InferSelectModel } from "drizzle-orm";
-import { eq } from "drizzle-orm";
-
-type CampaignType = InferSelectModel<typeof campaignsTable>;
-
-export class Campaign implements CampaignType {
-  id = "";
-  userEmail: string = "";
-  name = "";
-  description = "";
-  notes: string | null = null;
-  documents: string | null = null;
-
-  constructor(init?: Partial<Campaign>) {
-    Object.assign(this, init);
-  }
-}
+import { Campaign } from "~/models/campaign.model";
 
 export const useCampaigns = () => {
   const _campaigns = useState<Campaign[]>(() => []);
   const campaigns = computed(() => _campaigns.value);
 
-  const db = useNeonDatabase();
-
   const addCampaign = async (campaign: Campaign) => {
-    const insertedCampaign = await db
-      .insert(campaignsTable)
-      .values({
+    const newID = crypto.randomUUID();
+    await $fetch("/api/campaign", {
+      method: "POST",
+      body: {
         ...campaign,
+        id: newID,
+      },
+    })
+      .then((response) => {
+        _campaigns.value.push(new Campaign(response));
       })
-      .returning()
-      .then(() => {
-        _campaigns.value.push(campaign);
-      })
-      .catch((err) => {
-        console.error(`[ useCampaigns ] Error adding campaign: ${err}`);
-      });
-    return insertedCampaign;
-  };
-
-  const removeCampaign = (campaign: Campaign) => {
-    db.delete(campaignsTable)
-      .where(eq(campaignsTable.id, campaign.id))
-      .then(() => {
-        _campaigns.value = _campaigns.value.filter((p) => p !== campaign);
-
-        console.log(
-          `[ useCampaigns ] Campaign with id ${campaign.id} removed successfully.`
-        );
-      })
-      .catch((err) => {
-        console.error(`[ useCampaigns ] Error removing campaign: ${err}`);
+      .catch((error) => {
+        console.error("ERROR [Campaign Add]", error);
       });
   };
 
-  const updateCampaign = (campaign: Campaign, updatedCampaign: Campaign) => {
-    db.update(campaignsTable)
-      .set({
-        ...updatedCampaign,
-      })
-      .where(eq(campaignsTable.id, campaign.id))
+  const removeCampaign = async (campaign: Campaign) => {
+    await $fetch(`/api/campaign/${campaign.id}`, {
+      method: "DELETE",
+    })
       .then(() => {
-        const index = _campaigns.value.findIndex((p) => p === campaign);
-        _campaigns.value[index] = updatedCampaign;
-        console.log(
-          `[ useCampaigns ] Campaign with id ${campaign.id} updated successfully.`
-        );
+        _campaigns.value = _campaigns.value.filter((c) => c.id !== campaign.id);
       })
-      .catch((err) => {
-        console.error(`[ useCampaigns ] Error updating campaign: ${err}`);
+      .catch((error) => {
+        console.error("Error deleting campaign", error);
+      });
+  };
+
+  const updateCampaign = async (campaign: Campaign) => {
+    await $fetch("/api/campaign/", {
+      method: "PUT",
+      body: {
+        ...campaign,
+      },
+    })
+      .then(() => {
+        const index = _campaigns.value.findIndex((c) => c === campaign);
+        _campaigns.value[index] = campaign;
+      })
+      .catch((error) => {
+        console.error("ERROR [Campaign Update]", error);
       });
   };
 
   const findCampaign = (id: string) => {
-    return _campaigns.value.find((p) => p.id === id);
+    return _campaigns.value.find((c) => c.id === id);
   };
 
-  const getCampaigns = async () => {
-    const allCampaigns = await db
-      .select()
-      .from(campaignsTable)
-      .then(
-        (rows) =>
-          (_campaigns.value = rows.map(
-            (row) =>
-              new Campaign({
-                ...row,
-              })
-          ))
-      );
-    return allCampaigns;
+  const getCampaigns = async (email: string) => {
+    await $fetch(`/api/campaigns`, {
+      method: "GET",
+      params: {
+        email,
+      },
+    })
+      .then((response) => {
+        _campaigns.value = response as Campaign[];
+      })
+      .catch((error) => {
+        console.error("ERROR [Campaigns Get]", error);
+      });
   };
 
   return {

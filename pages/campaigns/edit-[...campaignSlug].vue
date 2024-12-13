@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from "vue-router";
-import { Campaign } from "~/composables/useCampaigns";
 import FormRow from "~/layouts/form-row.vue";
 import { ref, computed } from "vue";
 
@@ -31,15 +30,12 @@ watch(campaign, (newCampaign) => {
 const saveCampaign = () => {
   if (!campaign.value) return;
 
-  updateCampaign(
-    campaign.value,
-    new Campaign({
-      id: campaign.value.id,
-      name: name.value,
-      description: description.value,
-      notes: notes.value,
-    })
-  );
+  updateCampaign({
+    ...campaign.value,
+    name: name.value || "",
+    description: description.value || "",
+    notes: notes.value || "",
+  });
 
   router.replace({ name: "campaigns-list" });
 };

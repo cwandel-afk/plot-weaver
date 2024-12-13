@@ -57,6 +57,13 @@
       "when": 1733791303533,
       "tag": "0007_little_zarda",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1734062854472,
+      "tag": "0008_salty_mikhail_rasputin",
+      "breakpoints": true
     }
   ]
 }

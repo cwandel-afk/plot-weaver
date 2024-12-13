@@ -1,10 +1,9 @@
-<script setup lang="ts">
-import { useCampaigns } from "~/composables/useCampaigns";
-
+<script setup>
+const { user } = useUserSession();
 const { getCampaigns, campaigns } = useCampaigns();
 
 onMounted(() => {
-  getCampaigns();
+  getCampaigns(user.value.email);
 });
 </script>
 
@@ -13,7 +12,7 @@ onMounted(() => {
     <NuxtLayout>
       <div class="flex items-center justify-between mb-8">
         <h1 class="text-4xl font-bold">Campaigns</h1>
-        <NuxtLink :to="'/campaigns/add'">
+        <NuxtLink to="add">
           <button
             class="hover:border-purple-700 p-3 font-medium tracking-wider text-white bg-gray-600 border-4 border-purple-400 rounded-md"
           >

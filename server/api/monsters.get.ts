@@ -16,7 +16,6 @@ export default defineEventHandler(async (event) => {
     .from(monstersTable)
     .where(eq(monstersTable.userEmail, email))
     .then((rows) => {
-      console.log("Monsters fetched successfully");
       return rows.map(
         (row) =>
           new Monster({

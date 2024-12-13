@@ -1,0 +1,1 @@
+ALTER TABLE "campaigns" RENAME COLUMN "user_id" TO "userEmail";

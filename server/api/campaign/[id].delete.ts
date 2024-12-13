@@ -1,4 +1,4 @@
-import { monstersTable } from "~/server/database/schema";
+import { campaignsTable } from "~/server/database/schema";
 
 export default defineEventHandler((event) => {
   const id = event.context.params?.["id"];
@@ -6,16 +6,16 @@ export default defineEventHandler((event) => {
   if (!id) {
     throw createError({
       status: 400,
-      message: "No Monster ID provided",
+      message: "No Campaign ID provided",
     });
   }
 
-  db.delete(monstersTable)
-    .where(eq(monstersTable.id, id))
+  db.delete(campaignsTable)
+    .where(eq(campaignsTable.id, id))
     .returning()
     .catch((err) => {
       console.error(
-        `\n\n[ MONSTER DELETE ] Error deleting monster: ${err}\n\n`
+        `\n\n[ CAMPAIGN DELETE ] Error deleting campaign: ${err}\n\n`
       );
     });
 

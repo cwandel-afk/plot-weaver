@@ -14,7 +14,6 @@ export const useMonsters = () => {
       },
     })
       .then((response) => {
-        console.log("Monster created", response);
         _monsters.value.push(new Monster(response));
       })
       .catch((error) => {
@@ -27,7 +26,6 @@ export const useMonsters = () => {
       method: "DELETE",
     })
       .then(() => {
-        console.log("Monster deleted");
         _monsters.value = _monsters.value.filter((m) => m.id !== monster.id);
       })
       .catch((error) => {
@@ -43,7 +41,6 @@ export const useMonsters = () => {
       },
     })
       .then((response) => {
-        console.log("Monster updated", response);
         const index = _monsters.value.findIndex((p) => p === monster);
         _monsters.value[index] = monster;
       })
@@ -64,7 +61,6 @@ export const useMonsters = () => {
       },
     })
       .then((response) => {
-        console.log("Monsters fetched", response);
         _monsters.value = response as Monster[];
       })
       .catch((error) => {

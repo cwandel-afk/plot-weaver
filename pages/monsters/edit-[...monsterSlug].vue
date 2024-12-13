@@ -91,7 +91,6 @@ const update = async () => {
 
     await updateMonster(mon)
       .then(() => {
-        console.log("Monster updated");
         router.replace({ path: "/monsters" });
       })
       .catch((error) => {
@@ -103,7 +102,6 @@ const update = async () => {
 const remove = async (monster) => {
   removeMonster(monster)
     .then(() => {
-      console.log("Monster removed");
       router.replace({ path: "/monsters" });
     })
     .catch((error) => {
