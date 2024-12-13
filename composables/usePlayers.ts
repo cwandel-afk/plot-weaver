@@ -1,72 +1,51 @@
-import { playerCharacterTable } from "~/server/database/schema";
-import { eq } from "drizzle-orm";
-import { type InferSelectModel } from "drizzle-orm";
-
-type PlayerCharacter = InferSelectModel<typeof playerCharacterTable>;
-
-export class Player implements PlayerCharacter {
-  id = "";
-  campaign = "";
-  name = "";
-  description = "";
-  playerClass = "";
-  level = "";
-  background = "";
-  entity = "";
-
-  constructor(init?: Partial<Player>) {
-    Object.assign(this, init);
-  }
-}
+import { Player } from "~/models/player.model";
 
 export const usePlayers = () => {
   const _players = useState<Player[]>(() => []);
   const players = computed(() => _players.value);
 
-  const db = useNeonDatabase();
-
   const addPlayer = async (player: Player) => {
-    const insertedPlayer = await db
-      .insert(playerCharacterTable)
-      .values(player)
-      .returning()
-      .then(() => {
-        _players.value.push(player);
+    const newID = crypto.randomUUID();
+    await $fetch("/api/player", {
+      method: "POST",
+      body: {
+        ...player,
+        id: newID,
+      },
+    })
+      .then((response) => {
+        // _players.value.push(new Player(response));
       })
-      .catch((err) => {
-        console.error(`[ usePlayers ] Error adding player: ${err}`);
-      });
-    return insertedPlayer;
-  };
-
-  const removePlayer = (player: Player) => {
-    db.delete(playerCharacterTable)
-      .where(eq(playerCharacterTable.id, player.id))
-      .then(() => {
-        _players.value = _players.value.filter((p) => p !== player);
-
-        console.log(
-          `[ usePlayers ] Player with id ${player.id} removed successfully.`
-        );
-      })
-      .catch((err) => {
-        console.error(`[ usePlayers ] Error removing player: ${err}`);
+      .catch((error) => {
+        console.error("ERROR [Player Add]", error);
       });
   };
 
-  const updatePlayer = (player: Player, updatedPlayer: Player) => {
-    db.update(playerCharacterTable)
-      .set(updatedPlayer)
-      .where(eq(playerCharacterTable.id, player.id))
+  const removePlayer = async (player: Player) => {
+    await $fetch(`/api/player/${player.id}`, {
+      method: "DELETE",
+    })
       .then(() => {
+        _players.value = _players.value.filter((p) => p.id !== player.id);
+      })
+      .catch((error) => {
+        console.error("Error deleting player", error);
+      });
+  };
+
+  const updatePlayer = async (player: Player) => {
+    await $fetch("/api/player/", {
+      method: "PUT",
+      body: {
+        ...player,
+      },
+    })
+      .then((response) => {
         const index = _players.value.findIndex((p) => p === player);
-        _players.value[index] = updatedPlayer;
-        console.log(
-          `[ usePlayers ] Player with id ${player.id} updated successfully.`
-        );
+        _players.value[index] = player;
       })
-      .catch((err) => {
-        console.error(`[ usePlayers ] Error updating player: ${err}`);
+      .catch((error) => {
+        console.error("ERROR [Player Update]", error);
       });
   };
 
@@ -74,12 +53,19 @@ export const usePlayers = () => {
     return _players.value.find((p) => p.id === id);
   };
 
-  const getPlayers = async () => {
-    const allPlayers = await db
-      .select()
-      .from(playerCharacterTable)
-      .then((rows) => (_players.value = rows.map((row) => new Player(row))));
-    return allPlayers;
+  const getPlayers = async (email: string) => {
+    await $fetch(`/api/players`, {
+      method: "GET",
+      params: {
+        email,
+      },
+    })
+      .then((response) => {
+        _players.value = response as Player[];
+      })
+      .catch((error) => {
+        console.error("ERROR [Players Get]", error);
+      });
   };
 
   return {

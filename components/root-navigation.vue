@@ -9,7 +9,7 @@
         </NuxtLink>
       </li>
       <li class="hover:text-blue-700">
-        <NuxtLink active-class="text-amber-700">
+        <NuxtLink to="/players" active-class="text-amber-700">
           <UsersIcon class="size-8" />
         </NuxtLink>
       </li>
