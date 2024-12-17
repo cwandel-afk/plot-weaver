@@ -53,10 +53,8 @@ monstersData.forEach(async (monsterData) => {
           <th>Name</th>
           <th>Size</th>
           <th>Type</th>
-          <th>Alignment</th>
           <th>AC</th>
           <th>HP</th>
-          <th>Speed</th>
           <th>Stats</th>
         </tr>
       </thead>
@@ -65,10 +63,8 @@ monstersData.forEach(async (monsterData) => {
           <td>{{ monster.name }}</td>
           <td>{{ monster.size }}</td>
           <td>{{ monster.type }}</td>
-          <td>{{ monster.alignment }}</td>
           <td>{{ monster.armorClass }}</td>
           <td>{{ monster.hitPoints }}</td>
-          <td>{{ monster.Speed }}</td>
           <td>{{ monster.Stats }}</td>
         </tr>
       </tbody>

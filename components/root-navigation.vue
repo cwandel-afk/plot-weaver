@@ -1,39 +1,39 @@
 <template>
   <div
-    class="bg-slate-100 sticky top-0 left-0 grid justify-center w-16 h-screen grid-rows-2"
+    class="bg-neutral-500 sticky top-0 left-0 grid justify-center w-16 h-screen grid-rows-2"
   >
     <ul class="grid-rows-7 grid items-center justify-center w-16">
-      <li class="hover:text-blue-700">
+      <li class="hover:text-orange-700 text-stone-300">
         <NuxtLink to="/" active-class="text-amber-700">
           <HomeIcon class="size-8" />
         </NuxtLink>
       </li>
-      <li class="hover:text-blue-700">
+      <li class="hover:text-orange-700 text-stone-300">
         <NuxtLink to="/players" active-class="text-amber-700">
           <UsersIcon class="size-8" />
         </NuxtLink>
       </li>
-      <li class="hover:text-blue-700">
+      <li class="hover:text-orange-700 text-stone-300">
         <NuxtLink to="/monsters" active-class="text-amber-700">
           <IdentificationIcon class="size-8" />
         </NuxtLink>
       </li>
-      <li class="hover:text-blue-700">
+      <li class="hover:text-orange-700 text-stone-300">
         <NuxtLink active-class="text-amber-700">
           <GlobeAmericasIcon class="size-8" />
         </NuxtLink>
       </li>
-      <li class="hover:text-blue-700">
+      <li class="hover:text-orange-700 text-stone-300">
         <NuxtLink active-class="text-amber-700">
           <NumberedListIcon class="size-8" />
         </NuxtLink>
       </li>
-      <li class="hover:text-blue-700">
+      <li class="hover:text-orange-700 text-stone-300">
         <NuxtLink active-class="text-amber-700">
           <FireIcon class="size-8" />
         </NuxtLink>
       </li>
-      <li class="hover:text-blue-700">
+      <li class="hover:text-orange-700 text-stone-300">
         <NuxtLink to="/campaigns/list" active-class="text-amber-700">
           <FolderOpenIcon
             class="size-8 group-[.router-link-active]:text-amber-700"

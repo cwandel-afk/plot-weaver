@@ -13,12 +13,12 @@ const props = defineProps({
 
 <template>
   <div
-    class="items-center justify-center block p-1 text-center border-2 border-purple-300 rounded-md"
+    class="border-stone-300 items-center justify-center block p-1 text-center border-2 rounded-md"
   >
     <label :for="fieldId" class="text-2xl font-bold text-white">{{
       label
     }}</label>
-    <div class="size-24 m-2 border-4 border-purple-500 rounded-md">
+    <div class="size-24 border-stone-500 m-2 border-4 rounded-md">
       <slot />
     </div>
   </div>

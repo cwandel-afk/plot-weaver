@@ -3,6 +3,7 @@ import { ref, onMounted } from "vue";
 import { usePlayers } from "~/composables/usePlayers";
 import FormField from "~/layouts/form-field.vue";
 import { useRouter, useRoute } from "vue-router";
+import { BackwardIcon, TrashIcon } from "@heroicons/vue/24/solid";
 
 const router = useRouter();
 const route = useRoute();
@@ -62,80 +63,70 @@ onMounted(() => {
     <NuxtLayout>
       <div class="grid items-center justify-center w-full h-full">
         <form
-          class="rounded-xl flex flex-col items-center justify-center p-3 space-y-3 bg-gray-700 border-2 border-gray-500 shadow-lg"
+          class="grid items-center justify-center grid-flow-row grid-cols-2 gap-4"
           @submit.prevent="update"
         >
-          <div class="flex items-center w-full space-x-3">
-            <FormField fieldId="name" label="Player Name">
-              <input
-                type="text"
-                id="name"
-                name="name"
-                v-model="player.name"
-                class="w-96 p-2 border-4 border-gray-800"
-              />
-            </FormField>
-            <FormField fieldId="class" label="Class">
-              <input
-                type="text"
-                id="class"
-                name="class"
-                v-model="player.class"
-                class="w-56 p-2 border-4 border-gray-800"
-              />
-            </FormField>
-          </div>
-          <div class="flex items-center justify-between w-full">
-            <FormField fieldId="level" label="Level">
-              <input
-                type="number"
-                id="level"
-                name="level"
-                v-model="player.level"
-                class="w-28 p-2 mr-3 border-4 border-gray-800"
-              />
-            </FormField>
-            <FormField fieldId="hitPoints" label="HP">
-              <input
-                type="number"
-                id="hitPoints"
-                name="hitPoints"
-                v-model="player.hitPoints"
-                class="w-28 p-2 mr-3 border-4 border-gray-800"
-              />
-            </FormField>
-            <FormField fieldId="armorClass" label="AC">
-              <input
-                type="number"
-                id="armorClass"
-                name="armorClass"
-                v-model="player.armorClass"
-                class="w-28 p-2 mr-3 border-4 border-gray-800"
-              />
-            </FormField>
-            <FormField fieldId="playerName" label="Player Name">
-              <input
-                type="text"
-                id="playerName"
-                name="playerName"
-                v-model="player.playerName"
-                class="w-28 p-2 mr-3 border-4 border-gray-800"
-              />
-            </FormField>
-          </div>
-          <div class="grid items-center justify-center w-full grid-cols-2">
-            <button
-              type="submit"
-              class="w-96 p-2 text-2xl font-bold text-white bg-purple-500 border-4 border-purple-800 rounded-md"
-            >
-              Update Player
+          <FormField fieldId="name" label="Player Name">
+            <input
+              type="text"
+              id="name"
+              name="name"
+              v-model="player.name"
+              class="w-96 p-2 border-4 border-gray-800"
+            />
+          </FormField>
+          <FormField fieldId="class" label="Class">
+            <input
+              type="text"
+              id="class"
+              name="class"
+              v-model="player.class"
+              class="w-56 p-2 border-4 border-gray-800"
+            />
+          </FormField>
+          <FormField fieldId="level" label="Level">
+            <input
+              type="number"
+              id="level"
+              name="level"
+              v-model="player.level"
+              class="w-28 p-2 mr-3 border-4 border-gray-800"
+            />
+          </FormField>
+          <FormField fieldId="hitPoints" label="HP">
+            <input
+              type="number"
+              id="hitPoints"
+              name="hitPoints"
+              v-model="player.hitPoints"
+              class="w-28 p-2 mr-3 border-4 border-gray-800"
+            />
+          </FormField>
+          <FormField fieldId="armorClass" label="AC">
+            <input
+              type="number"
+              id="armorClass"
+              name="armorClass"
+              v-model="player.armorClass"
+              class="w-28 p-2 mr-3 border-4 border-gray-800"
+            />
+          </FormField>
+          <FormField fieldId="playerName" label="Player Name">
+            <input
+              type="text"
+              id="playerName"
+              name="playerName"
+              v-model="player.playerName"
+              class="w-28 p-2 mr-3 border-4 border-gray-800"
+            />
+          </FormField>
+          <div class="flex justify-between w-full col-span-3">
+            <button @click="router.replace({ name: 'players' })">
+              <BackwardIcon class="size-6"></BackwardIcon>
             </button>
-
-            <button
-              @click="remove(player)"
-              class="w-96 p-2 text-2xl font-bold text-white bg-purple-500 border-4 border-purple-800 rounded-md"
-            >
-              Delete Player
+            <button type="submit">Save Player</button>
+            <button @click="remove(player)">
+              <TrashIcon class="size-6"></TrashIcon>
             </button>
           </div>
         </form>

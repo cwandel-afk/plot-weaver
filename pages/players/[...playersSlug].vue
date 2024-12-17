@@ -25,11 +25,7 @@ onMounted(() => {
       <div class="flex items-center justify-between w-full h-20 px-6">
         <h1>Players</h1>
         <NuxtLink to="players/add">
-          <button
-            class="hover:border-purple-700 p-3 font-medium tracking-wider text-white bg-gray-600 border-4 border-purple-400 rounded-md"
-          >
-            Add
-          </button>
+          <button>Add</button>
         </NuxtLink>
       </div>
       <table>

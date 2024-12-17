@@ -31,18 +31,17 @@ export default defineNuxtComponent({
 
 <template>
   <div>
-    <div class="block space-x-6 border-b-4 border-gray-500">
+    <div class="grid grid-flow-row grid-cols-6 pb-1 border-b-4 border-gray-500">
       <button
         v-for="tab in tabs"
         :key="tab"
+        class="aria-selected:text-orange-500"
         :aria-selected="tab === selectedTab"
-        class="aria-selected:bg-gray-300 border-x-2 p-3 ml-2 border-t-2 border-gray-500 rounded-t-sm"
         @click="selectTab(tab)"
       >
         {{ tab }}
       </button>
     </div>
-    <!-- <div class="tab-content">Selected Tab: {{ selectedTab }}</div> -->
     <slot></slot>
   </div>
 </template>

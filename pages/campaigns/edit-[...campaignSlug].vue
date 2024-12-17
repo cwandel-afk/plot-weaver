@@ -2,6 +2,7 @@
 import { useRoute, useRouter } from "vue-router";
 import FormRow from "~/layouts/form-row.vue";
 import { ref, computed } from "vue";
+import { BackwardIcon, TrashIcon } from "@heroicons/vue/24/solid";
 
 const router = useRouter();
 const route = useRoute();
@@ -52,72 +53,38 @@ const deleteCampaign = () => {
 <template>
   <div>
     <NuxtLayout>
-      <div class="grid items-center justify-center w-full h-full">
-        <form
-          class="rounded-xl grid-rows-7 grid items-center justify-center gap-4 p-3 bg-gray-700 border-2 border-gray-500 shadow-lg"
-          @submit.prevent="saveCampaign"
-        >
-          <FormRow label="Campaign Name" fieldId="name" class="row-span-1">
-            <input
-              type="text"
-              id="name"
-              name="name"
-              v-model="name"
-              class="w-96 p-2 border-4 border-gray-800"
-            />
+      <div class="flex items-center justify-center h-full">
+        <form class="block w-1/2 space-y-8" @submit.prevent="saveCampaign">
+          <FormRow>
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" v-model="name" class="" />
           </FormRow>
 
-          <FormRow
-            label="Description"
-            fieldId="description"
-            :labelCentered="false"
-            class="row-span-3"
-          >
+          <FormRow>
+            <label for="description" class="self-start">Description</label>
             <textarea
               type="text"
               id="description"
               name="description"
               v-model="description"
-              class="h-52 w-full p-2 border-4 border-gray-800 resize-none"
             />
           </FormRow>
 
-          <FormRow
-            label="Notes"
-            fieldId="notes"
-            :labelCentered="false"
-            class="row-span-3"
-          >
-            <textarea
-              type="text"
-              id="notes"
-              name="notes"
-              v-model="notes"
-              class="h-52 w-full p-2 border-4 border-gray-800 resize-none"
-            />
+          <FormRow>
+            <label for="notes" class="self-start">Notes</label>
+            <textarea type="text" id="notes" name="notes" v-model="notes" />
           </FormRow>
 
-          <button
-            type="submit"
-            class="p-4 text-white border-4 border-purple-700"
-          >
-            Save Campaign
-          </button>
+          <div class="flex justify-between w-full">
+            <button @click="router.replace({ name: 'campaigns-list' })">
+              <BackwardIcon class="size-6"></BackwardIcon>
+            </button>
+            <button type="submit">Save Campaign</button>
+            <button @click="deleteCampaign()">
+              <TrashIcon class="size-6"></TrashIcon>
+            </button>
+          </div>
         </form>
-        <div class="flex justify-between mt-4">
-          <button
-            class="p-4 text-white border-4 border-red-700"
-            @click="router.replace({ name: 'campaigns-list' })"
-          >
-            Cancel
-          </button>
-          <button
-            class="p-4 text-white border-4 border-red-700"
-            @click="deleteCampaign()"
-          >
-            Delete Campaign
-          </button>
-        </div>
       </div>
     </NuxtLayout>
   </div>
